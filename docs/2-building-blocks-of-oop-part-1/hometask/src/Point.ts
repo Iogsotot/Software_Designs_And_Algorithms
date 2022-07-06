@@ -1,4 +1,4 @@
-interface IPoint {
+export interface IPoint {
   toString: () => string;
   distance: (x?: number, y?: number) => number;
 }
