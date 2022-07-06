@@ -1,6 +1,6 @@
 export interface IPoint {
   toString: () => string;
-  distance: (x?: number, y?: number) => number;
+  distance: (...args: any[]) => number;
 }
 
 export class Point implements IPoint {
@@ -32,8 +32,6 @@ export class Point implements IPoint {
       return this.distanceCalculate(this.x, this.y, 0, 0);
     };
     if (args.length === 1 && args[0] instanceof Point) {
-      console.log(this.distanceCalculate(this.x, this.y, args[0].x, args[0].y));
-
       return this.distanceCalculate(this.x, this.y, args[0].x, args[0].y)
     }
     if (args.length === 2) {
@@ -42,7 +40,7 @@ export class Point implements IPoint {
   }
 
   private distanceCalculate(Xa: number, Ya: number, Xb: number, Yb: number): number {
-    return Math.sqrt(Math.pow((Xb - Xa), 2) + Math.pow((Yb - Ya), 2));
+    return + Math.sqrt(Math.pow((Xb - Xa), 2) + Math.pow((Yb - Ya), 2)).toFixed(2);
   }
 }
 

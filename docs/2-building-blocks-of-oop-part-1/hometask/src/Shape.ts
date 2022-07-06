@@ -28,7 +28,7 @@ export abstract class Shape {
     }
 
     public getPerimeter() {
-        return this.points.reduce((prevPoint, currPoint) => prevPoint + currPoint.distance(prevPoint), 0);
+        return this.points.reduce((acc, currPoint, i, arr) => acc + currPoint.distance(arr[i - 1]) || 0, 0) + this.points[this.points.length - 1].distance(this.points[0]);
     }
 
     private humanReadablePoinstArray() {
