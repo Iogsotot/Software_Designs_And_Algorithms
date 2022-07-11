@@ -10,8 +10,9 @@ export abstract class Shape {
 
 	public constructor(points: IPoint[]);
 	public constructor(points: IPoint[], color: string, filled: boolean);
-	public constructor(points: IPoint[], color?: string, filled?: boolean) {
-		const args = arguments;
+	public constructor(...args: [ IPoint[], string?, boolean?]) {
+		const [points, color, filled] = args;
+		
 		if (points.length >= 3) {
 			this.points = points;
 			this.color = 'green';

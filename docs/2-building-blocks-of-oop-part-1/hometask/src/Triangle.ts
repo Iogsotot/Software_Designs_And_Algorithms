@@ -2,10 +2,11 @@ import { Point } from './Point';
 import { Shape } from './Shape';
 
 export class Triangle extends Shape {
-	public constructor(points: Point[]);
-	public constructor(points: Point[], color: string, filled: boolean);
-	public constructor(...args: any[]) {
-		super(args);
+	public constructor(arg1: Point, arg2: Point, arg3: Point);
+	public constructor(arg1: Point, arg2: Point, arg3: Point, color: string, filled: boolean);
+	public constructor(...args: [Point, Point, Point, string?, boolean?]) {
+		const [arg1, arg2, arg3, color, filled] = args;
+		super([arg1, arg2, arg3], color, filled);
 	}
 
 	public toString(): string {
