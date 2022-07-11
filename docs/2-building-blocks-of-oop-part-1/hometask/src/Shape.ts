@@ -1,4 +1,4 @@
-import { IPoint, Point } from './Point';
+import { IPoint } from './Point';
 export abstract class Shape {
 	protected color: string;
 	protected filled: boolean;
@@ -10,14 +10,15 @@ export abstract class Shape {
 
 	public constructor(points: IPoint[]);
 	public constructor(points: IPoint[], color: string, filled: boolean);
-	public constructor(...args: any[]) {
-		if (args[0].length >= 3) {
-			this.points = args[0];
+	public constructor(points: IPoint[], color?: string, filled?: boolean) {
+		const args = arguments;
+		if (points.length >= 3) {
+			this.points = points;
 			this.color = 'green';
 			this.filled = true;
-			if (args.length === 3) {
-				this.color = args[1];
-				this.filled = args[2];
+			if (args.length === 3 && color && filled !== undefined) {
+				this.color = color;
+				this.filled = filled;
 			}
 		} else {
 			throw new Error('Shape must have at least 3 points (2 points is just a line)');

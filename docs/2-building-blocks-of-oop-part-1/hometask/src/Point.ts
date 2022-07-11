@@ -1,6 +1,6 @@
 export interface IPoint {
 	toString: () => string;
-	distance: (...args: any[]) => number;
+	distance: (arg1?: IPoint | number, arg2?: number) => number;
 }
 
 export class Point implements IPoint {
@@ -9,7 +9,7 @@ export class Point implements IPoint {
 
 	public constructor();
 	public constructor(x: number, y: number);
-	public constructor(...args: any[]) {
+	public constructor(...args: number[]) {
 		if (args.length === 0) {
 			this.x = 0;
 			this.y = 0;
@@ -24,18 +24,19 @@ export class Point implements IPoint {
 		return `(${this.x}, ${this.y})`;
 	}
 
-	public distance();
-	public distance(other: IPoint);
-	public distance(x: number, y: number);
-	public distance(...args: any[]) {
+	public distance(): number;
+	public distance(other: IPoint): number;
+	public distance(x: number, y: number): number;
+	public distance(arg1?: IPoint | number, arg2?: number): number | undefined {
+		const args = arguments;
 		if (args.length === 0) {
 			return this.distanceCalculate(this.x, this.y, 0, 0);
 		}
-		if (args.length === 1 && args[0] instanceof Point) {
-			return this.distanceCalculate(this.x, this.y, args[0].x, args[0].y);
+		if (args.length === 1 && arg1 instanceof Point) {
+			return this.distanceCalculate(this.x, this.y, arg1.x, arg1.y);
 		}
-		if (args.length === 2) {
-			return this.distanceCalculate(this.x, this.y, args[0], args[1]);
+		if (!!arg2 && !!arg1 && typeof arg1 === 'number') {
+			return this.distanceCalculate(this.x, this.y, arg1, arg2);
 		}
 	}
 
