@@ -1,39 +1,41 @@
-import { IPoint } from './Point';
+import { IPoint, Point } from './Point';
 export abstract class Shape {
-    protected color: string;
-    protected filled: boolean;
-    points: IPoint[]
+	protected color: string;
+	protected filled: boolean;
+	points: IPoint[];
 
-    public constructor(points: IPoint[]);
-    public constructor(points: IPoint[], color: string, filled: boolean);
-    public constructor(...args: any[]) {
-        if (args[0].length >= 3) {
-            if (args.length === 1) {
-                this.points = args[0];
-                this.color = 'green';
-                this.filled = true;
-            };
-            if (args.length === 3) {
-                this.points = args[0];
-                this.color = args[1];
-                this.filled = args[2];
-            }
-        } else {
-            throw new Error('Shape has at least 3 points (2 points is just a line)');
-        }
-    }
+	private getHumanReadablePointsArray() {
+		return this.points.join(', ');
+	}
 
-    public toString() {
-        return `A Shape with color of ${this.color} and ${this.filled ? 'filled' : 'not filled'}. Points: ${this.humanReadablePoinstArray()}.`
-    }
+	public constructor(points: IPoint[]);
+	public constructor(points: IPoint[], color: string, filled: boolean);
+	public constructor(...args: any[]) {
+		if (args[0].length >= 3) {
+			this.points = args[0];
+			this.color = 'green';
+			this.filled = true;
+			if (args.length === 3) {
+				this.color = args[1];
+				this.filled = args[2];
+			}
+		} else {
+			throw new Error('Shape must have at least 3 points (2 points is just a line)');
+		}
+	}
 
-    public getPerimeter() {
-        return this.points.reduce((acc, currPoint, i, arr) => acc + currPoint.distance(arr[i - 1]) || 0, 0) + this.points[this.points.length - 1].distance(this.points[0]);
-    }
+	public toString() {
+		return `A Shape with color of ${this.color} and ${
+			this.filled ? 'filled' : 'not filled'
+		}. Points: ${this.getHumanReadablePointsArray()}.`;
+	}
 
-    private humanReadablePoinstArray() {
-        return this.points.map((point) => ` ${point.toString()}`).toString().trim();
-    }
+	public getPerimeter() {
+		return (
+			this.points.reduce((acc, currPoint, i, arr) => acc + currPoint.distance(arr[i - 1]) || 0, 0) +
+			this.points[this.points.length - 1].distance(this.points[0])
+		);
+	}
 
-    abstract getType(): string;
+	abstract getType(): string;
 }
