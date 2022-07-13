@@ -1,7 +1,7 @@
 import { Item } from './Item';
 
 export abstract class Weapon extends Item {
-	private static MODIFIER_CHANGE_RATE: number = 0.05;
+	static MODIFIER_CHANGE_RATE: number = 0.05;
 	private baseDamage: number = 0;
 	private damageModifier: number = 0;
 	private baseDurability: number = 0;
@@ -14,12 +14,12 @@ export abstract class Weapon extends Item {
 		this.baseDurability = baseDurability;
 	}
 
-	public getDamage() {
+	public getDamage(): number {
 		const effectiveDamage = this.baseDamage + this.damageModifier;
 		return effectiveDamage;
 	}
 
-	public getDurability() {
+	public getDurability(): number {
 		const effectiveDurability = this.durabilityModifier + this.baseDurability;
 		return effectiveDurability;
 	}
@@ -41,11 +41,23 @@ export abstract class Weapon extends Item {
 		return this.isBroken() ? `${msg} The hammer breaks.` : msg;
 	}
 
+	public getDamageModifier(): number {
+		return this.damageModifier;
+	}
+
+	public setDamageModifier(value: number): void {
+		this.damageModifier = value;
+	}
+
+	public getBaseDamage(): number {
+		return this.baseDamage;
+	}
+
 	private isBroken(): boolean {
 		return this.getDurability() <= 0;
 	}
 
-	private setBaseDurability(durability: number) {
+	private setBaseDurability(durability: number): void {
 		this.baseDurability = durability;
 	}
 }
