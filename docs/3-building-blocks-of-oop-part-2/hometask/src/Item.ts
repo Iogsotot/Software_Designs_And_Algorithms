@@ -33,6 +33,14 @@ export abstract class Item implements Comparable<Item> {
 		return this.weight;
 	}
 
+	public getName(): string {
+		return this.name;
+	}
+
+	public getValue(): number {
+		return this.value;
+	}
+
 	static reset(): void {
 		id = 0;
 	}
