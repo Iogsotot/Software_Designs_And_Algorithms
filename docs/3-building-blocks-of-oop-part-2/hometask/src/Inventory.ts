@@ -10,7 +10,7 @@ export class Inventory {
 		if (!comparator) {
 			this.items = this.items.sort((first, second) => first.getValue() - second.getValue());
 		} else {
-			this.items = this.items.sort((first, second) => first.getWeight() - second.getWeight());
+			this.items = this.items.sort(comparator.compare);
 		}
 	}
 

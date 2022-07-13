@@ -26,6 +26,10 @@ export abstract class Consumable extends Item {
 
 	abstract eat(): string;
 
+	public setConsumed(value: boolean): void {
+		this.consumed = value;
+	}
+
 	private isConsumed(): boolean {
 		return this.consumed;
 	}
