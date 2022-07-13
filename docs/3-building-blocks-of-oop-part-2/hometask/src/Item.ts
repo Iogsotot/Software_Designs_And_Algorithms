@@ -29,6 +29,10 @@ export abstract class Item implements Comparable<Item> {
 		return `${this.name} - Value: ${this.value}, Weight: ${this.weight}`;
 	}
 
+	public getWeight(): number {
+		return this.weight;
+	}
+
 	static reset(): void {
 		id = 0;
 	}
