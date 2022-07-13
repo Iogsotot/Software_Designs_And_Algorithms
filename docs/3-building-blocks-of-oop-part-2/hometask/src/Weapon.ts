@@ -53,6 +53,14 @@ export abstract class Weapon extends Item {
 		return this.baseDamage;
 	}
 
+	public getDurabilityModifier(): number {
+		return this.durabilityModifier;
+	}
+
+	public setDurabilityModifier(value: number): void {
+		this.durabilityModifier = value;
+	}
+
 	private isBroken(): boolean {
 		return this.getDurability() <= 0;
 	}
