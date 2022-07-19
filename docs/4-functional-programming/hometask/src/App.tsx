@@ -8,21 +8,18 @@ import styles from './App.module.scss';
 
 import type { Row } from './components';
 import type { Image, User, Account } from '../types';
-
-import rows from './mocks/rows.json';
-
-// mockedData has to be replaced with parsed Promises’ data
-const mockedData: Row[] = rows.data;
+import { dataConverter } from './helpers/dataConverter';
 
 function App() {
   const [data, setData] = useState<Row[]>(undefined);
 
   useEffect(() => {
-    // fetching data from API
-    Promise.all([getImages(), getUsers(), getAccounts()]).then(
-      ([images, users, accounts]: [Image[], User[], Account[]]) =>
-        console.log(images, users, accounts)
-    );
+    Promise.all([getImages(), getUsers(), getAccounts()])
+      .then(([images, users, accounts]: [Image[], User[], Account[]]) =>
+        dataConverter(users, accounts, images))
+      .then(rows => {
+        setData(rows);
+      });
   }, [])
 
   return (
@@ -35,7 +32,7 @@ function App() {
           </div>
           <Search />
         </div>
-        <Table rows={data || mockedData} />
+        {data?.length ? <Table rows={data} /> : <p>Loading data...</p>}
       </div>
     </StyledEngineProvider>
   );
