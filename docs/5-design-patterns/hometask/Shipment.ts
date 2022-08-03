@@ -27,20 +27,25 @@ export const enum ShipmentType {
 	OVERSIZED = 'oversized',
 }
 
-function shipmentDecorator<TFunction extends Function>(target: TFunction): TFunction {
-	let newConstructor: Function = function (data) {
-		const [isFragile, isDoNotLeave, isReturnReceiptRequested] = data;
-		this.ship = function (): void {
-			if (isFragile)
+type Constructor = { new(...args: any[]): any };
+
+function shipmentDecorator<T extends Constructor>(BaseClass: T) {
+	class newClass extends BaseClass {
+		ship() {
+			console.log(super.ship());
+			if (this.isFragile)
 				console.log('**MARK FRAGILE**');
-			if (isDoNotLeave)
+			if (this.isDoNotLeave)
 				console.log('**MARK DO NOT LEAVE IF ADDRESS NOT AT HOME**');
-			if (isReturnReceiptRequested)
+			if (this.isReturnReceiptRequested)
 				console.log('**MARK RETURN RECEIPT REQUESTED**');
 		}
 	}
-	return <TFunction>newConstructor;
+
+	return newClass;
 }
+
+
 
 @shipmentDecorator
 class Shipment implements IShipment {
@@ -51,6 +56,9 @@ class Shipment implements IShipment {
 	private fromZipCode: string; // 5 characters
 	private toAddress: string;
 	private toZipCode: string; // 5 characters
+	private isFragile: boolean;
+	private isDoNotLeave: boolean;
+	private isReturnReceiptRequested: boolean;
 
 	constructor(data: IShipmentData) {
 		this.shipmentId = data.shipmentId;
@@ -58,7 +66,10 @@ class Shipment implements IShipment {
 		this.fromAddress = data.fromAddress;
 		this.fromZipCode = data.fromZipCode;
 		this.toAddress = data.toAddress;
-		this.toZipCode = data.toZipCode
+		this.toZipCode = data.toZipCode;
+		this.isFragile = data.isFragile;
+		this.isDoNotLeave = data.isDoNotLeave;
+		this.isReturnReceiptRequested = data.isReturnReceiptRequested;
 	}
 
 	private getCost(): string {
@@ -88,6 +99,7 @@ class Shipment implements IShipment {
 	};
 
 	public ship(): string {
+
 		const res = `ID: ${this.shipmentId}, from: ${this.fromAddress}, to: ${this.toAddress}, cost: ${this.getCost()}`
 		return res;
 	};
