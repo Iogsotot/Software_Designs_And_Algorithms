@@ -14,8 +14,8 @@ https://github.com/photonstorm/phaser/blob/368b37b916b6d9a2e6f50dba13053017682f7
 
 | Principle                                  | Examples    |
 | ------------------------------------------ | ----------- |
-| Anti - Single Responsibility Principle	 | Title       |
-| Anti - Open / Closed Principle	         | Text        |
-| Anti - Liskov Substitution Principle       | Text        |
+| Anti - Single Responsibility Principle	 | Singleton, God object       |
+| Anti - Open / Closed Principle	         | Singleton, Lightweight       |
+| Anti - Liskov Substitution Principle       | unexpected behavior        |
 | Anti - Interface Seggregation Principle    | https://github.com/solidjs/solid/blob/main/packages/solid/src/server/rendering.ts#L118-L145        |
-| Anti - Dependency Inversion Principle      | Text        |
+| Anti - Dependency Inversion Principle      | Service locator        |
