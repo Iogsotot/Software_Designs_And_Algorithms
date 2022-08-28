@@ -24,7 +24,11 @@ const edges = [
 	new Edge(vertex2, vertex4, 6),
 	new Edge(vertex2, vertex3, 5),
 ];
+
 const graph: IWeightedGraph<IVertex> = new WeightedGraph();
 
 vertices.forEach((verticle) => graph.addVertex(verticle.key));
 edges.forEach((edge) => graph.addEdge(edge.from, edge.to, edge.weight));
+
+
+console.log(graph);
