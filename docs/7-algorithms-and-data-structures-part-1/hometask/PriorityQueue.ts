@@ -15,19 +15,14 @@ export class PriorityQueue {
 	}
 
 	bubbleUp() {
-		//Reference 'new' Element
 		let idx = this.values.length - 1;
 		const element = this.values[idx];
 
-		//while the index is NOT the top of the heap
 		while (idx > 0) {
-			// if the child element is greater/equal to the parent, exit the loop
-			//Find 'parent' element
 			let parentIdx = Math.floor((idx - 1) / 2);
 			let parent = this.values[parentIdx];
 
 			if (element.priority <= parent.priority) break;
-			// else, swap parent and child and reassign the 'new' element's index to be what the parent's was.
 			if (element.priority > parent.priority) {
 				this.values[parentIdx] = element;
 				this.values[idx] = parent;
@@ -42,7 +37,6 @@ export class PriorityQueue {
 		}
 
 		let max = this.values[0];
-		// this.values[0] = this.values.pop();
 		let end = this.values.pop();
 		if (this.values.length > 0) {
 			this.values[0] = end;
@@ -53,7 +47,7 @@ export class PriorityQueue {
 
 	sinkDown() {
 		let idx = 0;
-		const length = this.values.length; // Easier to reference length
+		const length = this.values.length;
 		const element = this.values[0];
 
 		while (true) {

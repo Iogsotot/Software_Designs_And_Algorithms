@@ -60,34 +60,20 @@ export class Dijkstra implements IDijkstra<IVertex> {
 		while (node) {
 			let distance = distances[node];
 			let children = this._graph.adjacencyList[node];
-
-			console.log(children);
-
 			for (let child in children) {
 				if (String(child) === String(start)) {
-					console.log("don't return to the start node! 🙅");
 					continue;
 				} else {
-					console.log('startNode: ' + start);
-					console.log(
-						'distance from node ' + parents[node] + ' to node ' + node + ')'
-					);
-					console.log('previous distance: ' + distances[node]);
-
 					let newdistance = distance + children[child];
-					console.log('new distance: ' + newdistance);
 
 					if (!distances[child] || distances[child] > newdistance) {
 						distances[child] = newdistance;
 						parents[child] = node;
-						console.log('distance + parents updated');
 					} else {
-						console.log('not updating, because a shorter path already exists!');
+						console.log('smth wrong');
 					}
 				}
 			}
-
-			//@
 			visited.push(node);
 			node = this.shortestDistanceNode(distances, visited);
 		}
@@ -106,7 +92,6 @@ export class Dijkstra implements IDijkstra<IVertex> {
 			parent = parents[parent];
 		}
 		shortestPath.reverse();
-		console.log(distances);
 
 		return { path: shortestPath, distance: distances[end] };
 	}
